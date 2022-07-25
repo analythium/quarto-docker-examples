@@ -1,0 +1,26 @@
+---
+title: "Interactivity with HTML Widgets"
+format: 
+  html:
+    code-fold: true
+---
+
+## Leaflet
+
+Example following [this](https://quarto.org/docs/interactive/widgets/htmlwidgets.html) page.
+
+```{r}
+library(leaflet)
+leaflet() %>%
+  addTiles() %>%  # Add default OpenStreetMap map tiles
+  addMarkers(lng=174.768, lat=-36.852, popup="The birthplace of R")
+```
+## Layout
+
+```{r}
+#| layout: [[1,1], [1]]
+library(dygraphs)
+dygraph(fdeaths, "Female Deaths")
+dygraph(mdeaths, "Male Deaths")
+dygraph(ldeaths, "All Deaths")
+```
