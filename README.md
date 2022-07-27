@@ -2,8 +2,7 @@
 
 This repository contains supporting material ofr the following blog posts on the _Hosting Data Apps_ ([hosting.analythium.io](https://hosting.analythium.io/)) website:
 
-- [Part 1]()
-- [Part 2]()
+- [How to Set Up Quarto with Docker, Part 1: Static Content]()
 
 [Quarto](https://quarto.org/) is is an open-source scientific and technical publishing system built on [Pandoc](https://pandoc.org/).
 
