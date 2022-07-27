@@ -18,7 +18,7 @@ The examples in this repository focus on R related Quarto documents. We review t
     - [Book](#book)
       - [Option 1: local rendering](#option-1-local-rendering-1)
       - [Option 2: render inside Docker](#option-2-render-inside-docker-1)
-  - [Render and interactive file with widgets](#render-and-interactive-file-with-widgets)
+  - [Render an interactive file with widgets](#render-an-interactive-file-with-widgets)
 
 ## Create a Quarto parent image
 
@@ -174,7 +174,7 @@ docker build \
 docker run -p 8080:8080 analythium/quarto:static-book
 ```
 
-## Render and interactive file with widgets
+## Render an interactive file with widgets
 
 Render an [interactive](https://quarto.org/docs/interactive/widgets/htmlwidgets.html) but static file:
 
