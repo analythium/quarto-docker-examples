@@ -213,7 +213,7 @@ Note: you can serve the doc from R with `quarto::quarto_serve("index.qmd")`.
 
 Depending on the complexity of your document, rendering at the container launch time will significantly increase "cold start" time. But we can render the document as part of the Docker build process. This is analogous to the R Markdown prerendered Shiny runtime (shinyrmd).
 
-When we render the file, the UI elements get rendered, while the code chinks marked as `context: server` will wait until the rendered document is served.
+When we render the file, the UI elements get rendered, while the code chinks marked as `context: server` will wait until the rendered document is served. Read more about [render and server contexts](https://quarto.org/docs/interactive/shiny/execution.html#sharing-code).
 
 This example shows k-means clustering with [custom page layout](https://quarto.org/docs/interactive/layout.html).
 
