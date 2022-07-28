@@ -215,7 +215,7 @@ Depending on the complexity of your document, rendering at the container launch 
 
 When we render the file, the UI elements get rendered, while the code chinks marked as `context: server` will wait until the rendered document is served.
 
-This example shows k-means clustering with [custom page layout]().
+This example shows k-means clustering with [custom page layout](https://quarto.org/docs/interactive/layout.html).
 
 `quarto serve` is called with the `--no-render` flag to avoid unnecessary rendering.
 
