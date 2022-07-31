@@ -3,6 +3,7 @@
 This repository contains supporting material ofr the following blog posts on the _Hosting Data Apps_ ([hosting.analythium.io](https://hosting.analythium.io/)) website:
 
 - [How to Set Up Quarto with Docker, Part 1: Static Content](https://hosting.analythium.io/how-to-set-up-quarto-with-docker-part-1-static-content/)
+- [How to Set Up Quarto with Docker, Part 2: Dynamic Content](https://hosting.analythium.io/how-to-set-up-quarto-with-docker-part-2-dynamic-content)
 
 [Quarto](https://quarto.org/) is is an open-source scientific and technical publishing system built on [Pandoc](https://pandoc.org/).
 
@@ -19,6 +20,8 @@ The examples in this repository focus on R related Quarto documents. We review t
       - [Option 1: local rendering](#option-1-local-rendering-1)
       - [Option 2: render inside Docker](#option-2-render-inside-docker-1)
   - [Render an interactive file with widgets](#render-an-interactive-file-with-widgets)
+  - [Server: Shiny](#server-shiny)
+  - [Shiny prerendered](#shiny-prerendered)
 
 ## Create a Quarto parent image
 
@@ -184,4 +187,42 @@ docker build \
     -t analythium/quarto:static-widget .
 
 docker run -p 8080:8080 analythium/quarto:static-widget
+```
+
+## Server: Shiny
+
+You can specify [Shiny](https://quarto.org/docs/interactive/shiny/) as the engine to run the dynamic Quarto document.
+
+In this example we do not render the Quarto document up front. The render step will happen when the container is spin up. This is analogous to the R Markdown Shiny runtime.
+
+We use the `quarto serve index.qmd --port 8080 --host 0.0.0.0` command to specify port and host IPv4 address. The `quarto serve` function will render the document  before serving.
+
+This example shows the classic Old Faithful histogram with the slider.
+
+```bash
+docker build -f Dockerfile.shiny -t analythium/quarto:shiny .
+
+docker run -p 8080:8080 analythium/quarto:shiny
+```
+
+If you can't kill the container with `Ctrl+C`, try getting the container ID with `docker ps` and then use `docker kill $ID`.
+
+Note: you can serve the doc from R with `quarto::quarto_serve("index.qmd")`.
+
+## Shiny prerendered
+
+Depending on the complexity of your document, rendering at the container launch time will significantly increase "cold start" time. But we can render the document as part of the Docker build process. This is analogous to the R Markdown prerendered Shiny runtime (shinyrmd).
+
+When we render the file, the UI elements get rendered, while the code chunks marked as `context: server` will wait until the rendered document is served. Read more about [render and server contexts](https://quarto.org/docs/interactive/shiny/execution.html#sharing-code).
+
+This example shows k-means clustering with [custom page layout](https://quarto.org/docs/interactive/layout.html).
+
+`quarto serve` is called with the `--no-render` flag to avoid unnecessary rendering.
+
+```bash
+docker build \
+  -f Dockerfile.shiny-prerendered \
+  -t analythium/quarto:shiny-prerendered .
+
+docker run -p 8080:8080 analythium/quarto:shiny-prerendered
 ```
