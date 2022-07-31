@@ -1,4 +1,4 @@
-FROM analythium/r2u-quarto:20.04 AS builder
+FROM analythium/r2u-quarto:20.04
 
 RUN addgroup --system app && adduser --system --ingroup app app
 WORKDIR /home/app
